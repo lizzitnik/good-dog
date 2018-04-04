@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: HsR92Bmw1LaQEsb7TGsoaa2e44hKBgwjRcwALTadZ10VtusD501kuVKwFIj+8PKo1TfEzjQO0YijTp2+W/fFAAmQsp1U0Jhsdby4Ea/05sHl2V1OC0ZeSy204vkqDIEK7H+jx76f3UnR4ARqGnGzxrcKErs7Fdrv2v1VcGh+HYdC7BFLcrqCGLumMCVdI+XDoH7FuLHfrqmKXBZmIzgbHcjmMqaTkms32CPzOb+he+ibAIHlpop58EHhcypQMbTMg9bwdZgTZ+N3EY2e22ozTl7JKTB1o1A4fxVddkKVExAL0kIHV1Xk+WtgIfs09MdnyLUqowk5VYMAvAWvhzi1oqwk5BcCi+IiorTbrABXRp+SKpKaElEcXHtcR3EAeOjFftTl85Mlbh++EfYEv1oo4RM/Nng2dds6G1JpmvKg7fHZZIMDjszAvfjOrC4ItSZnXYVP6/NnR7dIvbgvmmqNNtScUC99MweIDoXgFzmh6auraqf/Az8Yrlr0y54xriYMi0cbWDytIPyg/biX0dGUT5SAjs5oH5kW6Vvk9YuhhBq1Teb48JVC+nRpBAfZmRq3SnYEca956kZWiuc7IK44jGGjqo0GN747fPS4NWWnmw5yOLD1qKuZUfxP30NJB8YI9kKSI0Qa+X9u2GcWZhmadzdxP6rbGCjkgbqDD5zq8Hs=
+  app: good-dog
+  on:
+    repo: lizzitnik/good-dog
