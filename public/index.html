@@ -2,20 +2,67 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Good Dog</title>
+    <link rel='stylesheet' href='/main.css'>
   </head>
   <body>
-    <div class='landing-page'>
+    <div class='landing-page' style='display: none;'>
       <h1>Welcome to Good Dog</h1>
       <h3>A community of dog owners all here to help your dog smile again.</h3>
       <ul>
         <li>Search by dog breed or symptom and connect with dog owners with
           similar pet problems</li>
         <li>Create your own post describing your own dog's ailment and read suggestions
-          by people who want to help</li>
+          by people who want to help.</li>
       </ul>
       <h3>Be the hero your dog knows you are!</h3>
-      <button class='landing-button'>SignIn</button>
+      <button class='landing-button'>SignUp</button>
     </div>
+
+    <div class='login-page'>
+      <h1>Good Dog</h1>
+      <div class='login-container'>
+        <h2>SignUp</h2>
+        <form class='signup-form'>
+          <div class='group'>
+            <label for='first-name' class='label'>First Name</label>
+            <input type='text' class='first-name input'>
+          </div>
+          <div class='group'>
+            <label for='last-name' class='label'>Last Name</label>
+            <input type='text' class='last-name input'>
+          </div>
+          <div class='group'>
+            <label for='user' class='label'>Username</label>
+            <input type='text' class='user input'>
+          </div>
+          <div class='group'>
+            <label for='pass' class='label'>Password</label>
+            <input type='password' class='pass input' data-type='password'>
+          </div>
+          <button type='submit' class='signup-button button'>Sign Up</button>
+        </form>
+
+        <div class='hr'></div>
+
+        <h2>SignIn</h2>
+        <form class='signin-form'>
+          <div class='group'>
+            <label for='user' class='label'>Username</label>
+            <input type='text' class='user input'>
+          </div>
+          <div class='group'>
+            <label for='pass' class='label'>Password</label>
+            <input type='password' class='pass input' data-type='password'>
+          </div>
+          <button type='submit' class='signin-button button'>Sign In</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"
+	    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	    crossorigin="anonymous"></script>
+      <script src='/client.js'></script>
   </body>
 </html>

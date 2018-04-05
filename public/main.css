@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font: 600 16px/18px 'Open Sans', sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 50px;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  padding-top: 5px;
+}
+
+.login-page {
+  width: 100%;
+  margin: auto;
+  max-width: 525px;
+  min-height: 653px;
+  position: relative;
+}
+
+.login-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 30px 70px 50px 70px;
+  background: rgba(26, 106, 33, 0.9)
+}
+
+.login-container .group .label,
+.login-container .button {
+  text-transform: uppercase;
+}
+
+h2,
+.login-container .group {
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+.login-container .group .label,
+.login-conatiner .group .input,
+.login-container .button {
+  width: 100%;
+  color: #fff;
+  display: block;
+}
+
+.login-container .group .input,
+.login-container .button {
+  border: none;
+  padding: 7px 10px;
+  width: 400px;
+  border-radius: 25px;
+  background: .rgba(255, 255, 255, 0.1)
+}
+
+.login-container .group .input[data-type='password'] {
+  text-security: circle;
+}
+
+.login-container .group .label {
+  color: #aaa;
+  font-size: 12px;
+}
+
+.login-container .button {
+  background: rgba(58, 186, 58, 1);
+}
+
+.login-container .button:hover {
+  background: rgba(58, 186, 58, 0.7)
+}
+
+.signup-form {
+  padding-bottom: 20px;
+}
+
+.hr {
+  height: 2px;
+  margin: 10px 0 20px 0;
+  background: rgba(255, 255, 255, 0.2);
+}
