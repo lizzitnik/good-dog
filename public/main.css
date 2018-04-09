@@ -63,7 +63,7 @@ h2,
   padding: 7px 10px;
   width: 400px;
   border-radius: 25px;
-  background: .rgba(255, 255, 255, 0.1)
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .login-container .group .input[data-type='password'] {

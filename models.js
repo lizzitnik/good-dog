@@ -26,10 +26,16 @@ const DogSchema = mongoose.Schema({
   heading: {
     type: String
   },
-  breed: {
+  dogName: {
     type: String
   },
-  symptoms: {
+  dogBreed: {
+    type: String
+  },
+  symptom: {
+    type: String
+  },
+  additionalInfo: {
     type: String
   }
 })
@@ -47,8 +53,10 @@ DogSchema.methods.serialize = function() {
   return {
     id: this._id,
     heading: this.heading,
-    breed: this.breed,
-    symptoms: this.symptoms
+    dogName: this.dogName,
+    dogBreed: this.dogBreed,
+    symptom: this.symptom,
+    additionalInfo: this.additionalInfo
   };
 };
 

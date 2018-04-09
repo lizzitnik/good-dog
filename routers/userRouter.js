@@ -14,7 +14,6 @@ const {
 } = require("../models")
 
 router.post("/", jsonParser, (req, res) => {
-  debugger
   const requiredFields = ["username", "password"]
   const missingField = requiredFields.find(field => !(field in req.body))
 
