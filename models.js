@@ -23,9 +23,6 @@ const UserSchema = mongoose.Schema({
 })
 
 const DogSchema = mongoose.Schema({
-  heading: {
-    type: String
-  },
   dogName: {
     type: String
   },
@@ -52,7 +49,6 @@ UserSchema.methods.serialize = function() {
 DogSchema.methods.serialize = function() {
   return {
     id: this._id,
-    heading: this.heading,
     dogName: this.dogName,
     dogBreed: this.dogBreed,
     symptom: this.symptom,

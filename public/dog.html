@@ -13,23 +13,14 @@
       </div>
     </header>
 
-    <main>
-      <div class='sidebar-container'>
-        <h3 class='my-dogs-title'>My Dogs</h3>
-        <div class='my-dogs-listing'>
-          <div class='my-dogs-results'></div>
-        </div>
-      </div>
-
+    <main role='main'>
       <div class='main-container'>
-        <h2 class='main-title'>Welcome to Good Dog
-          <span class='main-first-name'></span>
-        <p class='main-para'> Find a similar dog below
-          or create a new one by clicking the 'create'
-          button above</p>
-        <div class='hr'></div>
-        <div class='main-listing'>
-          <div class='main-results'></div>
+        <div class='dog-wrap'>
+          <div class='dog-results'></div>
+        </div>
+        <div class='comment-wrap'>
+          <div class='comment-results'>
+          </div>
         </div>
       </div>
     </main>
@@ -38,5 +29,6 @@
 	    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	    crossorigin="anonymous"></script>
     <script src='/dog.js'></script>
+    <script src='/jwtdecode.js'></script>
   </body>
 </html>
