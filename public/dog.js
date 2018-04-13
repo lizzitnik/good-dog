@@ -87,6 +87,22 @@ function getRecentsComments(callbackFn) {
   }, 1);
 }
 
+function handleDogModal() {
+  $('.create-button').on('click', function() {
+    $('.dog-modal').show();
+  })
+
+  $('.dog-modal-close').on('click', function() {
+    $('.dog-modal').hide();
+  })
+
+  window.onclick = function(e) {
+    if (event.target === document.getElementById('modal')) {
+      $('.dog-modal').hide();
+    }
+  }
+}
+
 function displayComments(data) {
   for (index in data.comments) {
     $('.comment-results').append(
@@ -109,5 +125,6 @@ function getAndDisplayComments() {
 $(function() {
   getAndDisplayDogs();
   getAndDisplayComments();
+  handleDogModal()
   decodeJwt();
 })

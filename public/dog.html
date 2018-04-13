@@ -23,6 +23,34 @@
           </div>
         </div>
       </div>
+
+      <div class='dog-modal' id='modal'>
+        <div class='dog-modal-content'>
+          <div class='dog-modal-header'>
+            <span class='dog-modal-close'>&times;</span>
+            <h2>Tell us about your dog!</h2>
+          </div>
+          <form class='dog-modal-body'>
+            <div class='group'>
+              <label class='label' for='dog-name-input'>Dog Name </label>
+              <input class='input' id='dog-name-input' type='text' placeholder="Fido">
+            </div>
+            <div class='group'>
+              <label class='label' for='dog-breed-input'>Dog Breed </label>
+              <input class='input' id='dog-breed-input' type='text' placeholder="Huskey">
+            </div>
+            <div class='group'>
+              <label class='label' for='dog-symptom-input'>Symptom </label>
+              <input class='input' id='dog-symptom-input' type='text' placeholder="Dry Nose">
+            </div>
+            <div class='group'>
+              <label class='label' for='info-input'>Other Info</label>
+              <textarea id='info-input' type='text' placeholder="Any additional info you think people should know..."></textarea>
+            </div>
+            <button class='submit-dog-button' type='submit'>Submit</button>
+          </form>
+        </div>
+      </div>
     </main>
 
     <script src="//code.jquery.com/jquery-3.1.1.min.js"

@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
   Dog.find()
     .then(dogs => {
       res.json({
-        dogs: dogs.map(dog = > dog.serialize())
+        dogs: dogs.map(dog => dog.serialize())
       })
     })
     .catch(err => {
@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-  Dog.findById(req.parama.id)
+  Dog.findById(req.params.id)
     .then(post => res.json(post.serialize()))
     .catch(err => {
       console.error(err)
