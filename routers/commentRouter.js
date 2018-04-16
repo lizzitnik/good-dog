@@ -9,7 +9,7 @@ const mongoose = require("mongoose")
 mongoose.Promise = global.Promise
 
 const {
-  Dog,
+  Comments,
   User
 } = require('../models')
 
@@ -18,10 +18,10 @@ const jwtAuth = passport.authenticate('jwt', {
 })
 
 router.get('/', (req, res) => {
-  Dog.find()
-    .then(dogs => {
+  Comments.find()
+    .then(comments => {
       res.json({
-        dogs: dogs.map(dog => dog.serialize())
+        comments: comments.map(comment => comment.serialize())
       })
     })
     .catch(err => {
@@ -34,10 +34,10 @@ router.get('/', (req, res) => {
 
 router.get('/my', (req, res) => {
   User.findById(req.user.id)
-    .populate('dogs')
+    .populate('comments')
     .then(user => {
       res.json({
-        dogs: user.dogs.map(dog => dog.serialize())
+        comments: user.comments.map(comment => comment.serialize())
       })
     })
     .catch(err => {
@@ -49,7 +49,7 @@ router.get('/my', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-  Dog.findById(req.params.id)
+  Comments.findById(req.params.id)
     .then(post => res.json(post.serialize()))
     .catch(err => {
       console.error(err)
@@ -60,7 +60,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const requiredFields = ['dogName', 'dogBreed', 'symptom']
+  const requiredFields = ['commenterName', 'commentContent']
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i]
     if (!(field in req.body)) {
@@ -70,15 +70,13 @@ router.post('/', (req, res) => {
     }
   }
   console.log('rendering req.body' + req.body)
-  Dog.create({
-      dogName: req.body.dogName,
-      dogBreed: req.body.dogBreed,
-      symptom: req.body.symptom,
-      additionalInfo: req.body.additionalInfo
+  Comments.create({
+      commenterName: req.body.commenterName,
+      commentContent: req.body.commentContent,
     })
-    .then(dog => {
-      console.log(dog)
-      res.status(201).json(dog.serialize())
+    .then(comment => {
+      console.log(comment)
+      res.status(201).json(comment.serialize())
     })
     .catch(err => {
       console.log(err)
@@ -89,32 +87,8 @@ router.post('/', (req, res) => {
 
 })
 
-router.put('/:id', (req, res) => {
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    })
-  }
-  const updated = {}
-  const updatableFields = ['symptom', 'additionalInfo']
-  updatableFields.forEach(field => {
-    if (field in req.body) {
-      updated[field] = req.body[field]
-    }
-  })
-  Dog.findByIdAndUpdate(req.params.id, {
-      $set: updated
-    }, {
-      new: true
-    })
-    .then(updatedPost => res.status(204).end())
-    .catch(err => res.status(500).json({
-      message: 'Something went wrong'
-    }))
-})
-
 router.delete('/:id', (req, res) => {
-  Dog.findByIdAndRemove(req.params.id)
+  Comments.findByIdAndRemove(req.params.id)
     .then(() => {
       res.status(204).json({
         message: 'success'

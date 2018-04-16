@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class='dog-modal' id='modal'>
+      <div class='modal' id='dog-modal'>
         <div class='dog-modal-content'>
           <div class='dog-modal-header'>
             <span class='dog-modal-close'>&times;</span>
@@ -33,21 +33,41 @@
           <form class='dog-modal-body'>
             <div class='group'>
               <label class='label' for='dog-name-input'>Dog Name </label>
-              <input class='input' id='dog-name-input' type='text' placeholder="Fido">
+              <input class='input' id='dog-name-input' type='text' placeholder="'Fido'">
             </div>
             <div class='group'>
               <label class='label' for='dog-breed-input'>Dog Breed </label>
-              <input class='input' id='dog-breed-input' type='text' placeholder="Huskey">
+              <input class='input' id='dog-breed-input' type='text' placeholder="'Huskey'">
             </div>
             <div class='group'>
               <label class='label' for='dog-symptom-input'>Symptom </label>
-              <input class='input' id='dog-symptom-input' type='text' placeholder="Dry Nose">
+              <input class='input' id='dog-symptom-input' type='text' placeholder="'Dry Nose'">
             </div>
             <div class='group'>
               <label class='label' for='info-input'>Other Info</label>
               <textarea id='info-input' type='text' placeholder="Any additional info you think people should know..."></textarea>
             </div>
             <button class='submit-dog-button' type='submit'>Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <div class='modal' id='comment-modal'>
+        <div class='comment-modal-content'>
+          <div class='comment-modal-header'>
+            <span class='comment-modal-close'>&times;</span>
+            <h2>How can you help?</h2>
+          </div>
+          <form class='comment-modal-body'>
+            <div class='group'>
+              <label class='label' for='comment-name-input'>Your Name </label>
+              <input class='input' id='comment-name-input' type='text'>
+            </div>
+            <div class='group'>
+              <label class='label' for='comment-input'>Your Comment </label>
+              <textarea class='input' id='comment-input' type='text'></textarea>
+            </div>
+            <button class='submit-comment-button' type='submit'>Submit</button>
           </form>
         </div>
       </div>

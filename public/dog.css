@@ -49,7 +49,7 @@ body {
   background-color: rgba(58, 186, 58, 0.7)
 }
 
-.dog-modal {
+.modal {
   display: none;
   position: fixed;
   z-index: 2;
@@ -62,39 +62,48 @@ body {
   background-color: rgba(0,0,0, 0.4);
 }
 
-.dog-modal-content {
+.dog-modal-content,
+.comment-modal-content {
   position: relative;
   background-color: #fff;
   margin: 0 auto;
   padding: 0;
   border: 1px solid rgba(58, 186, 58, 1);
-  width: 70%;
+  width: 600px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   animation-name: animatetop;
   animation-duration: 0.4s;
 }
 
-.dog-modal-content .group {
+.dog-modal-content .group,
+.comment-modal-content .group {
   margin-bottom: 15px;
   margin-top: 5px;
 }
 
 .dog-modal-content .group .label,
-.submit-dog-button {
+.comment-modal-content .group .label,
+.submit-dog-button,
+.submit-comment-button {
   text-transform: uppercase;
 }
 
 .dog-modal-content .group .label,
 .dog-modal-content .group .input,
+.comment-modal-content .group .label,
+.comment-modal-content .group .input,
 #info-input,
-.submit-dog-button {
+.submit-dog-button,
+.submit-comment-button {
   width: 100%;
   color: #fff;
   display: block;
 }
 
 .dog-modal-content .group .input,
+.comment-modal-content .group .input,
 .submit-dog-button,
+.submit-comment-button,
 #info-input {
   border: none;
   padding: 7px 10px;
@@ -103,52 +112,59 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.dog-modal-content .group .label {
+.dog-modal-content .group .label,
+.comment-modal-content .group .label  {
   color: #aaa;
   font-size: 12px;
 }
 
 .dog-modal-content .group .input,
+.comment-modal-content .group .input,
 #info-input {
   background-color: lightgrey;
   color: black;
 }
 
-.submit-dog-button {
+.submit-dog-button,
+.submit-comment-button {
   background: rgba(58, 186, 58, 1);
 }
 
-.submit-dog-button:hover {
+.submit-dog-button:hover,
+.submit-comment-button:hover {
   background: rgba(58, 186, 58, 0.7)
 }
 
 .close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.dog-modal-header {
+.dog-modal-header,
+.comment-modal-header {
   padding: 2px 16px;
   background-color: rgba(58, 186, 58, 1);
   color: white;
 }
 
-.dog-modal-header h2 {
+.dog-modal-header h2,
+.comment-modal-header h2  {
   text-align: center;
-
+  margin-bottom: 15px;
 }
 
-.dog-modal-body {
-  margin: 30px 70px 50px 70px;
+.dog-modal-body,
+.comment-modal-body {
+  margin: 30px 70px 50px 105px;
 }
 
 @keyframes animatetop {

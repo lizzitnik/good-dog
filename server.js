@@ -13,6 +13,8 @@ const passport = require('passport');
 
 const usersRouter = require('./routers/userRouter');
 const authRouter = require('./routers/authRouter');
+const dogRouter = require('./routers/dogRouter');
+const commentRouter = require('./routers/commentRouter')
 const {
   localStrategy,
   jwtStrategy
@@ -29,6 +31,8 @@ passport.use(jwtStrategy);
 
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/dogs', dogRouter);
+app.use('/comments', commentRouter);
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');

@@ -1,46 +1,26 @@
-var MOCK_DOGS = {
-  'dogs': [{
-      'id': '1111',
-      'dogName': 'Fido',
-      'dogBreed': 'Huskey',
-      'symptom': 'Runny nose',
-      'additionalInfo': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauri.'
-    },
-    {
-      'id': '2222',
-      'dogName': 'Steve',
-      'dogBreed': 'Pitbull',
-      'symptom': 'Hoarse Cough',
-      'additionalInfo': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauri.'
-    },
-    {
-      'id': '3333',
-      'dogName': 'Bacon',
-      'dogBreed': 'Irish Setter',
-      'symptom': 'Odd lump',
-      'additionalInfo': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauri.'
-    },
-  ]
-};
+const serverBase = '//localhost:8080/'
+const DOGS_URL = serverBase + 'dogs'
+const COMMENTS_URL = serverBase + 'comments'
 
-var MOCK_COMMENTS = {
-  'comments': [{
-      'id': '11111',
-      'name': 'Nancy',
-      'contents': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauri.'
-    },
-    {
-      'id': '22222',
-      'name': 'Brian',
-      'contents': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauri.'
-    },
-    {
-      'id': '33333',
-      'name': 'Ted',
-      'contents': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauri.'
-    },
-  ]
-};
+const dogTemplate = (`
+<div class='dog-html'>
+  <div class='top-dog'>
+    <h2 class='dog-heading'></h3>
+  </div>
+  <div class='bottom-dog'>
+    <p class='dog-symptom'></p>
+    <p class='dog-info'></p>
+  </div>
+  <button type='button'class='comment-button'>Comment</button>
+</div>
+`);
+
+const commentTemplate = (`
+<div class='comment-html'>
+  <p class='comment-by'></p>
+  <p class='comment-contents'></p>
+</div>
+`)
 
 function decodeJwt() {
   const token = localStorage.getItem('TOKEN');
@@ -48,83 +28,200 @@ function decodeJwt() {
   window.decoded
 }
 
-function getRecentsDogs(callbackFn) {
-  setTimeout(function() {
-    callbackFn(MOCK_DOGS)
-  }, 1);
+function displayDogs() {
+  console.log('Retrieving dogs')
+  $.getJSON(DOGS_URL, function(dogs) {
+    console.log(dogs);
+    const dogsElement = dogs.dogs.map(function(dog) {
+      const element = $(dogTemplate);
+      element.attr('id', dog.id);
+      element.find('.dog-heading').text(dog.dogName + ' the ' + dog.dogBreed);
+      element.find('.dog-symptom').text('Symptom: ' + dog.symptom);
+      element.find('.dog-info').text('More Info: ' + dog.additionalInfo)
+
+      return element;
+    });
+    $('.dog-results').html(dogsElement)
+  });
 }
 
-function displayDogs(data) {
-  for (index in data.dogs) {
-    // let data.dogs[index] = this;
-    $('.dog-results').append(
-      `
-      <div class='dog-html'>
-        <div class='top-dog'>
-          <h2 class='dog-heading'>${data.dogs[index].dogName} the
-            ${data.dogs[index].dogBreed}</h3>
-        </div>
-        <div class='bottom-dog'>
-          <p class='dog-symptom'>Symptom: <span class='symptom-span'>${data.dogs[index].symptom}</span>
-          </p>
-          <p class='dog-info'>More Info: <span class='info-span'>${data.dogs[index].additionalInfo}</span>
-          </p>
-        </div>
-        <button type='button'class='comment-button'>Comment</button>
-      </div>
-      `
-    );
-  }
+function displayComments() {
+  console.log('Retrieving comments')
+  $.getJSON(COMMENTS_URL, function(comments) {
+    console.log(comments);
+    const commentsElement = comments.comments.map(function(comment) {
+      const element = $(commentTemplate);
+      element.attr('id', comment.id);
+      element.find('.comment-by').text('By: ' + comment.commenterName);
+      element.find('.comment-contents').text(comment.commentContent);
+
+      return element;
+    });
+    $('.comment-results').html(commentsElement)
+  });
 }
 
-function getAndDisplayDogs() {
-  getRecentsDogs(displayDogs);
+function displaySingleDog(dog) {
+
+  const element = $(dogTemplate);
+  element.attr('id', dog.id);
+  element.find('.dog-heading').text(dog.dogName + ' the ' + dog.dogBreed);
+  element.find('.dog-symptom').text('Symptom: ' + dog.symptom);
+  element.find('.dog-info').text('More Info: ' + dog.additionalInfo)
+
+  $('.dog-results').append(element)
 }
 
-function getRecentsComments(callbackFn) {
-  setTimeout(function() {
-    callbackFn(MOCK_COMMENTS)
-  }, 1);
+function displaySingleComment(comment) {
+
+  const element = $(commentTemplate);
+  element.attr('id', comment.id);
+  element.find('.comment-by').text('By: ' + comment.commenterName);
+  element.find('.comment-contents').text(comment.commentContent);
+
+  $('.comment-results').append(element)
 }
 
 function handleDogModal() {
-  $('.create-button').on('click', function() {
-    $('.dog-modal').show();
+  $('.create-button').on('click', function(e) {
+    e.preventDefault();
+    $('#dog-modal').show();
   })
 
-  $('.dog-modal-close').on('click', function() {
-    $('.dog-modal').hide();
+  $('#dog-modal-close').on('click', function(e) {
+    e.preventDefault();
+    $('#dog-modal').hide();
   })
 
   window.onclick = function(e) {
-    if (event.target === document.getElementById('modal')) {
-      $('.dog-modal').hide();
+    if (event.target === document.getElementById('dog-modal')) {
+      e.preventDefault()
+      $('#dog-modal').hide();
     }
   }
 }
 
-function displayComments(data) {
-  for (index in data.comments) {
-    $('.comment-results').append(
-      `
-      <div class='comment-html'>
-        <p class='comment-by'>By: ${data.comments[index].name}</p>
-        <p class='comment-contents'>${data.comments[index].contents}</p>
-      </div>
-      `
-    );
+function handleDogSubmit() {
+  $('.submit-dog-button').on('click', function(e) {
+    e.preventDefault();
+    handleDogAdd()
+  })
+}
+
+function handleDogAdd() {
+  console.log('preparing to add')
+
+  const dogName = $('#dog-name-input').val()
+  const dogBreed = $('#dog-breed-input').val()
+  const symptom = $('#dog-symptom-input').val()
+  const additionalInfo = $('#info-input').val()
+
+  addDog({
+    dogName: dogName,
+    dogBreed: dogBreed,
+    symptom: symptom,
+    additionalInfo: additionalInfo
+  })
+
+  $('#dog-name-input').val('')
+  $('#dog-breed-input').val('')
+  $('#dog-symptom-input').val('')
+  $('#info-input').val('')
+  $('#dog-modal').hide();
+}
+
+function addDog(dog) {
+  console.log('Adding dog: ' + dog)
+  $.ajax({
+    method: 'POST',
+    url: DOGS_URL,
+    data: JSON.stringify(dog),
+    success: displaySingleDog
+  })
+}
+
+function handleCommentModal() {
+  $('.comment-button').on('click', function(e) {
+    e.preventDefault();
+    $('#comment-modal').show();
+  })
+
+  $('#comment-modal-close').on('click', function(e) {
+    e.preventDefault();
+    $('#comment-modal').hide();
+  })
+
+  window.onclick = function(e) {
+    if (event.target === document.getElementById('comment-modal')) {
+      e.preventDefault()
+      $('#comment-modal').hide();
+    }
   }
 }
 
-function getAndDisplayComments() {
-  getRecentsComments(displayComments);
+function handleCommentSubmit() {
+  $('.submit-comment-button').on('click', function(e) {
+    e.preventDefault();
+    handleCommentAdd()
+  })
+}
+
+function handleCommentAdd() {
+  console.log('preparing to add')
+
+  const commenterName = $('#comment-name-input').val()
+  const commentContent = $('#comment-input').val()
+
+  addComment({
+    commenterName: commenterName,
+    commentContent: commentContent,
+  })
+
+  $('#comment-name-input').val('')
+  $('#comment-input').val('')
+  $('#comment-modal').hide();
+}
+
+function addComment(comment) {
+  console.log('Adding comment: ' + comment)
+  $.ajax({
+    method: 'POST',
+    url: COMMENTS_URL,
+    data: JSON.stringify(comment),
+    success: displaySingleComment
+  })
+}
+
+function updateDog(dog) {
+  console.log('Updating dog`' + dog.id + '`')
+  $.ajax({
+    url: DOGS_URL + '/' + dog.id,
+    method: 'PUT',
+    data: dog,
+    success: displaySingleDog
+  })
 }
 
 
+function setupAjax() {
+  $.ajaxSetup({
+    dataType: "json",
+    contentType: "application/json",
+    headers: {
+      Authorization: "JWT " + localStorage.getItem("TOKEN")
+    }
+  })
+}
+
 
 $(function() {
-  getAndDisplayDogs();
-  getAndDisplayComments();
-  handleDogModal()
+  setupAjax()
+  displayDogs();
+  handleDogModal();
+  handleDogSubmit();
+
+  displayComments();
+  handleCommentModal();
+  handleCommentSubmit();
   decodeJwt();
 })
