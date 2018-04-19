@@ -12,6 +12,7 @@ function login(userCreds) {
 
 function addTokenToLocalStorage(response) {
   localStorage.setItem("TOKEN", response.authToken)
+  localStorage.setItem("USER", JSON.stringify(response.user))
   window.location.href = "/dog.html"
 }
 

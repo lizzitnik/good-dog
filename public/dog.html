@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Good Dog Main Page</title>
     <link rel='stylesheet' href='/dog.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <header>
@@ -14,23 +15,16 @@
     </header>
 
     <main role='main'>
-      <div class='main-container'>
-        <div class='dog-wrap'>
-          <div class='dog-results'></div>
-        </div>
-        <div class='comment-wrap'>
-          <div class='comment-results'>
-          </div>
-        </div>
-      </div>
+      <div class='main-container'></div>
 
       <div class='modal' id='dog-modal'>
-        <div class='dog-modal-content'>
-          <div class='dog-modal-header'>
-            <span class='dog-modal-close'>&times;</span>
+        <div class='overlay'></div>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <span class='close'>&times;</span>
             <h2>Tell us about your dog!</h2>
           </div>
-          <form class='dog-modal-body'>
+          <form class='modal-body'>
             <div class='group'>
               <label class='label' for='dog-name-input'>Dog Name </label>
               <input class='input' id='dog-name-input' type='text' placeholder="'Fido'">
@@ -47,18 +41,19 @@
               <label class='label' for='info-input'>Other Info</label>
               <textarea id='info-input' type='text' placeholder="Any additional info you think people should know..."></textarea>
             </div>
-            <button class='submit-dog-button' type='submit'>Submit</button>
+            <button class='modal-submit-button' id='dog-submit'type='submit'>Submit</button>
           </form>
         </div>
       </div>
 
       <div class='modal' id='comment-modal'>
-        <div class='comment-modal-content'>
-          <div class='comment-modal-header'>
-            <span class='comment-modal-close'>&times;</span>
+        <div class='overlay'></div>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <span class='close'>&times;</span>
             <h2>How can you help?</h2>
           </div>
-          <form class='comment-modal-body'>
+          <form class='modal-body'>
             <div class='group'>
               <label class='label' for='comment-name-input'>Your Name </label>
               <input class='input' id='comment-name-input' type='text'>
@@ -67,7 +62,28 @@
               <label class='label' for='comment-input'>Your Comment </label>
               <textarea class='input' id='comment-input' type='text'></textarea>
             </div>
-            <button class='submit-comment-button' type='submit'>Submit</button>
+            <button class='modal-submit-button' id='comment-submit' type='submit'>Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <div class='modal edit-modal'>
+        <div class='overlay'></div>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <span class='close'>&times;</span>
+            <h2>Any updates?</h2>
+          </div>
+          <form class='modal-body'>
+            <div class='group'>
+              <label class='label' for='edit-symptom-input'>Symptom </label>
+              <input class='input' id='edit-symptom-input' type='text'>
+            </div>
+            <div class='group'>
+              <label class='label' for='edit-info-input'>Other Info </label>
+              <textarea class='input' id='edit-info-input' type='text'></textarea>
+            </div>
+            <button class='modal-submit-button' id='edit-submit' type='submit'>Submit</button>
           </form>
         </div>
       </div>

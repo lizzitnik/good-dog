@@ -2,25 +2,42 @@ const serverBase = '//localhost:8080/'
 const DOGS_URL = serverBase + 'dogs'
 const COMMENTS_URL = serverBase + 'comments'
 
+const editButtons = (`
+  <button type='button' class='delete-button'>Delete</button>
+  <button type='button' class='edit-button'>Edit</button>
+  `)
+
 const dogTemplate = (`
-<div class='dog-html'>
-  <div class='top-dog'>
-    <h2 class='dog-heading'></h3>
+  <div class='row-container'>
+    <div class='dog-wrap'>
+      <div class='dog-results'>
+        <div class='dog-html'>
+          <div class='top-dog'>
+            <img class='dog-image'>
+            <h2 class='dog-heading'></h3>
+          </div>
+          <div class='bottom-dog'>
+            <p class='dog-symptom'></p>
+            <p class='dog-info'></p>
+          </div>
+          <div class='edit-buttons'></div>
+          <button class='comment-button'>Comment</button>
+        </div>
+      </div>
+    </div>
+    <div class='comment-wrap'>
+      <div class='comment-results'>
+      </div>
+    </div>
   </div>
-  <div class='bottom-dog'>
-    <p class='dog-symptom'></p>
-    <p class='dog-info'></p>
-  </div>
-  <button type='button'class='comment-button'>Comment</button>
-</div>
 `);
 
-const commentTemplate = (`
-<div class='comment-html'>
-  <p class='comment-by'></p>
-  <p class='comment-contents'></p>
-</div>
-`)
+const commentTemplate = (comment) => (`
+  <div class='comment-html'>
+    <p class='comment-by'>${comment.commenterName}</p>
+    <p class='comment-contents'>${comment.commentContent}</p>
+  </div>
+  `)
 
 function decodeJwt() {
   const token = localStorage.getItem('TOKEN');
@@ -30,34 +47,32 @@ function decodeJwt() {
 
 function displayDogs() {
   console.log('Retrieving dogs')
+  window.user = JSON.parse(localStorage.getItem('USER'))
   $.getJSON(DOGS_URL, function(dogs) {
     console.log(dogs);
     const dogsElement = dogs.dogs.map(function(dog) {
       const element = $(dogTemplate);
+      const commentElement = dog.comments.map(function(comment) {
+        return commentTemplate(comment);
+      })
+
       element.attr('id', dog.id);
+      element.find('.dog-image').attr('src', dog.dogImage)
       element.find('.dog-heading').text(dog.dogName + ' the ' + dog.dogBreed);
       element.find('.dog-symptom').text('Symptom: ' + dog.symptom);
       element.find('.dog-info').text('More Info: ' + dog.additionalInfo)
+      element.find('.comment-results').html(commentElement.join(''))
+
+      const owner = window.user && window.user.dogs.includes(dog.id)
+      if (owner) {
+        element.find('.comment-button').hide()
+        element.find('.edit-buttons').html(editButtons)
+      }
 
       return element;
     });
-    $('.dog-results').html(dogsElement)
-  });
-}
 
-function displayComments() {
-  console.log('Retrieving comments')
-  $.getJSON(COMMENTS_URL, function(comments) {
-    console.log(comments);
-    const commentsElement = comments.comments.map(function(comment) {
-      const element = $(commentTemplate);
-      element.attr('id', comment.id);
-      element.find('.comment-by').text('By: ' + comment.commenterName);
-      element.find('.comment-contents').text(comment.commentContent);
-
-      return element;
-    });
-    $('.comment-results').html(commentsElement)
+    $('.main-container').html(dogsElement)
   });
 }
 
@@ -69,17 +84,25 @@ function displaySingleDog(dog) {
   element.find('.dog-symptom').text('Symptom: ' + dog.symptom);
   element.find('.dog-info').text('More Info: ' + dog.additionalInfo)
 
-  $('.dog-results').append(element)
+  window.user = JSON.parse(localStorage.getItem('USER'))
+  const owner = window.user && window.user.dogs.includes(dog.id)
+
+  if (owner) {
+    element.find('.comment-button').hide()
+    element.find('.edit-buttons').html(editButtons)
+  }
+
+  $('.main-container').append(element)
 }
 
 function displaySingleComment(comment) {
 
-  const element = $(commentTemplate);
+  const commentElement = $(dogTemplate);
   element.attr('id', comment.id);
   element.find('.comment-by').text('By: ' + comment.commenterName);
   element.find('.comment-contents').text(comment.commentContent);
 
-  $('.comment-results').append(element)
+  $('.main-container').append(element)
 }
 
 function handleDogModal() {
@@ -88,21 +111,19 @@ function handleDogModal() {
     $('#dog-modal').show();
   })
 
-  $('#dog-modal-close').on('click', function(e) {
+  $('.close').on('click', function(e) {
     e.preventDefault();
     $('#dog-modal').hide();
   })
 
-  window.onclick = function(e) {
-    if (event.target === document.getElementById('dog-modal')) {
-      e.preventDefault()
-      $('#dog-modal').hide();
-    }
-  }
+  $('.overlay').on('click', function(e) {
+    e.preventDefault()
+    $('#dog-modal').hide();
+  })
 }
 
 function handleDogSubmit() {
-  $('.submit-dog-button').on('click', function(e) {
+  $('#dog-submit').on('click', function(e) {
     e.preventDefault();
     handleDogAdd()
   })
@@ -136,27 +157,22 @@ function addDog(dog) {
     method: 'POST',
     url: DOGS_URL,
     data: JSON.stringify(dog),
-    success: displaySingleDog
+    success: displayDogs
   })
 }
 
 function handleCommentModal() {
-  $('.comment-button').on('click', function(e) {
-    e.preventDefault();
-    $('#comment-modal').show();
-  })
+  $('#comment-modal').show();
 
-  $('#comment-modal-close').on('click', function(e) {
+  $('.close').on('click', function(e) {
     e.preventDefault();
     $('#comment-modal').hide();
   })
 
-  window.onclick = function(e) {
-    if (event.target === document.getElementById('comment-modal')) {
-      e.preventDefault()
-      $('#comment-modal').hide();
-    }
-  }
+  $('.overlay').on('click', function(e) {
+    e.preventDefault()
+    $('#comment-modal').hide();
+  })
 }
 
 function handleCommentSubmit() {
@@ -192,6 +208,47 @@ function addComment(comment) {
   })
 }
 
+function handleEditModal() {
+  $('.edit-buttons').on('click', '.edit-button', function(e) {
+    e.preventDefault()
+    $('.edit-modal').show()
+    let elementId = $(this).closest('.row-container').attr('id')
+    $('.edit-modal').attr('id', elementId)
+  })
+
+  $('.close').on('click', function(e) {
+    e.preventDefault();
+    $('.edit-modal').hide();
+  })
+
+  $('.overlay').on('click', function(e) {
+    e.preventDefault()
+    $('.edit-modal').hide();
+  })
+
+  $('#edit-submit').on('click', function(e) {
+    e.preventDefault();
+
+    let newSymptom = $('#edit-symptom-input').val()
+    let newInfo = $('#edit-info-input').val()
+    let element = $('.edit-modal').attr('id')
+    let item = {
+      id: element,
+      symptom: newSymptom,
+      additionalInfo: newInfo
+    }
+    $('#edit-symptom-input').val('');
+    $('#edit-info-input').val('')
+    $('.edit-modal').hide();
+
+    updateDog(item)
+  })
+
+  // $('#edit-symptom-input').attr('value', dog.symptom)
+  // $('#edit-info-input').attr('value', dog.additionalInfo)
+
+}
+
 function updateDog(dog) {
   console.log('Updating dog`' + dog.id + '`')
   $.ajax({
@@ -199,6 +256,23 @@ function updateDog(dog) {
     method: 'PUT',
     data: dog,
     success: displaySingleDog
+  })
+}
+
+function handleDogDelete() {
+  $('.main-container').on('click', '.edit-button', function(e) {
+    e.preventDefault();
+    deleteDog(
+      $(this).attr('id')
+    )
+  })
+}
+
+function deleteDog(dogId) {
+  $.ajax({
+    url: DOGS_URL + '/' + dogId,
+    method: 'DELETE',
+    seccess: displayDogs
   })
 }
 
@@ -217,11 +291,12 @@ function setupAjax() {
 $(function() {
   setupAjax()
   displayDogs();
+
   handleDogModal();
   handleDogSubmit();
+  handleEditModal();
+  handleDogDelete();
 
-  displayComments();
-  handleCommentModal();
   handleCommentSubmit();
   decodeJwt();
 })
