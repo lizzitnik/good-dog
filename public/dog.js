@@ -159,7 +159,7 @@ function addDog(dog) {
 }
 
 function handleCommentModal() {
-  ('.comment-button').on('click', function(e) {
+  $('.comment-button').on('click', function(e) {
     e.preventDefault()
     $('#comment-modal').show()
     let elementId = $(this).closest('.row-container').attr('id')
@@ -211,18 +211,12 @@ function addComment(comment) {
 }
 
 function handleEditModal() {
-  const editButton = document.getElementById('edit-button')
-  editButton.addEventListener('click', function() {
+  $('.edit-buttons').on('click', '.edit-button', function(e) {
+    e.preventDefault()
     $('.edit-modal').show()
     let elementId = $(this).closest('.row-container').attr('id')
     $('.edit-modal').attr('id', elementId)
   })
-  // ('.edit-buttons').on('click', '.edit-button', function(e) {
-  //   e.preventDefault()
-  //   $('.edit-modal').show()
-  //   let elementId = $(this).closest('.row-container').attr('id')
-  //   $('.edit-modal').attr('id', elementId)
-  // })
 
   $('.close').on('click', function(e) {
     e.preventDefault();
@@ -305,6 +299,6 @@ $(function() {
   handleEditModal();
   //handleDogDelete();
 
-  handleCommentSubmit();
+  handleCommentModal();
   decodeJwt();
 })
