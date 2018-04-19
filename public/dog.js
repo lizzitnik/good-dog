@@ -3,8 +3,8 @@ const DOGS_URL = serverBase + 'dogs'
 const COMMENTS_URL = serverBase + 'comments'
 
 const editButtons = (`
-  <button type='button' class='delete-button'>Delete</button>
-  <button type='button' class='edit-button'>Edit</button>
+  <button type='button' id='delete-button'>Delete</button>
+  <button type='button' id='edit-button'>Edit</button>
   `)
 
 const dogTemplate = (`
@@ -97,12 +97,9 @@ function displaySingleDog(dog) {
 
 function displaySingleComment(comment) {
 
-  const commentElement = $(dogTemplate);
-  element.attr('id', comment.id);
-  element.find('.comment-by').text('By: ' + comment.commenterName);
-  element.find('.comment-contents').text(comment.commentContent);
+  let fullComment = commentTemplate(comment)
 
-  $('.main-container').append(element)
+  $('.comment-results').append(fullComment)
 }
 
 function handleDogModal() {
@@ -162,7 +159,12 @@ function addDog(dog) {
 }
 
 function handleCommentModal() {
-  $('#comment-modal').show();
+  ('.comment-button').on('click', function(e) {
+    e.preventDefault()
+    $('#comment-modal').show()
+    let elementId = $(this).closest('.row-container').attr('id')
+    $('#comment-modal').attr('id', elementId)
+  })
 
   $('.close').on('click', function(e) {
     e.preventDefault();
@@ -173,24 +175,24 @@ function handleCommentModal() {
     e.preventDefault()
     $('#comment-modal').hide();
   })
-}
 
-function handleCommentSubmit() {
-  $('.submit-comment-button').on('click', function(e) {
+  $('#comment-submit').on('click', function(e) {
     e.preventDefault();
-    handleCommentAdd()
+    let commentId = $('#comment-modal').attr('id')
+    handleCommentAdd(commentId)
   })
 }
 
-function handleCommentAdd() {
+function handleCommentAdd(commentId) {
   console.log('preparing to add')
 
   const commenterName = $('#comment-name-input').val()
   const commentContent = $('#comment-input').val()
 
   addComment({
+    id: commentId,
     commenterName: commenterName,
-    commentContent: commentContent,
+    commentContent: commentContent
   })
 
   $('#comment-name-input').val('')
@@ -209,12 +211,18 @@ function addComment(comment) {
 }
 
 function handleEditModal() {
-  $('.edit-buttons').on('click', '.edit-button', function(e) {
-    e.preventDefault()
+  const editButton = document.getElementById('edit-button')
+  editButton.addEventListener('click', function() {
     $('.edit-modal').show()
     let elementId = $(this).closest('.row-container').attr('id')
     $('.edit-modal').attr('id', elementId)
   })
+  // ('.edit-buttons').on('click', '.edit-button', function(e) {
+  //   e.preventDefault()
+  //   $('.edit-modal').show()
+  //   let elementId = $(this).closest('.row-container').attr('id')
+  //   $('.edit-modal').attr('id', elementId)
+  // })
 
   $('.close').on('click', function(e) {
     e.preventDefault();
@@ -295,7 +303,7 @@ $(function() {
   handleDogModal();
   handleDogSubmit();
   handleEditModal();
-  handleDogDelete();
+  //handleDogDelete();
 
   handleCommentSubmit();
   decodeJwt();
