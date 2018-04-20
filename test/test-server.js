@@ -27,6 +27,10 @@ describe('Dog', function() {
     return runServer(DATABASE_URL);
   });
 
+  beforeEach('Dog', function() {
+
+  })
+
   after(function() {
     return closeServer();
   });

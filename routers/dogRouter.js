@@ -167,12 +167,7 @@ router.post('/comments', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    debugger
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    })
-  }
+
   const updated = {}
   const updatableFields = ['symptom', 'additionalInfo']
   updatableFields.forEach(field => {
@@ -185,7 +180,7 @@ router.put('/:id', (req, res) => {
     }, {
       new: true
     })
-    .then(updatedPost => res.status(204).end())
+    .then(updatedPost => res.status(201).json(updatedPost.serialize()))
     .catch(err => res.status(500).json({
       message: 'Something went wrong'
     }))

@@ -254,8 +254,8 @@ body {
 }
 
 .comment-button,
-#delete-button,
-#edit-button {
+.delete-button,
+.edit-button {
   position: absolute;
   bottom: 0;
   height: 50px;
@@ -269,18 +269,18 @@ body {
   z-index: 1;
 }
 
-#delete-button,
-#edit-button {
+.delete-button,
+.edit-button {
   width: 50%;
 }
 
-#edit-button {
+.edit-button {
   right: 0;
   border-left: 1px solid white;
 }
 
-#delete-button:hover,
-#edit-button:hover {
+.delete-button:hover,
+.edit-button:hover {
   background-color: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }

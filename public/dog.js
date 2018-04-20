@@ -3,8 +3,8 @@ const DOGS_URL = serverBase + 'dogs'
 const COMMENTS_URL = serverBase + 'comments'
 
 const editButtons = (`
-  <button type='button' id='delete-button'>Delete</button>
-  <button type='button' id='edit-button'>Edit</button>
+  <button type='button' class='delete-button'>Delete</button>
+  <button type='button' class='edit-button'>Edit</button>
   `)
 
 const dogTemplate = (`
@@ -73,7 +73,16 @@ function displayDogs() {
     });
 
     $('.main-container').html(dogsElement)
+    handleEditModal();
+    handleCommentModal();
+    handleDogDelete();
   });
+}
+
+function createSingleDog(dog) {
+  window.user.dogs.push(dog.id)
+  localStorage.setItem("USER", JSON.stringify(window.user))
+  window.location.reload()
 }
 
 function displaySingleDog(dog) {
@@ -93,6 +102,15 @@ function displaySingleDog(dog) {
   }
 
   $('.main-container').append(element)
+}
+
+function updateSingleDog(dog) {
+
+  const element = $(`#${dog.id}`);
+  element.attr('id', dog.id);
+  element.find('.dog-symptom').text('Symptom: ' + dog.symptom);
+  element.find('.dog-info').text('More Info: ' + dog.additionalInfo)
+
 }
 
 function displaySingleComment(comment) {
@@ -154,7 +172,7 @@ function addDog(dog) {
     method: 'POST',
     url: DOGS_URL,
     data: JSON.stringify(dog),
-    success: displayDogs
+    success: createSingleDog
   })
 }
 
@@ -179,6 +197,7 @@ function handleCommentModal() {
   $('#comment-submit').on('click', function(e) {
     e.preventDefault();
     let commentId = $('#comment-modal').attr('id')
+    $('#comment-modal').hide();
     handleCommentAdd(commentId)
   })
 }
@@ -211,7 +230,7 @@ function addComment(comment) {
 }
 
 function handleEditModal() {
-  $('.edit-buttons').on('click', '.edit-button', function(e) {
+  $('.edit-button').on('click', function(e) {
     e.preventDefault()
     $('.edit-modal').show()
     let elementId = $(this).closest('.row-container').attr('id')
@@ -256,7 +275,7 @@ function updateDog(dog) {
   $.ajax({
     url: DOGS_URL + '/' + dog.id,
     method: 'PUT',
-    data: dog,
+    data: JSON.stringify(dog),
     success: displaySingleDog
   })
 }
@@ -264,9 +283,8 @@ function updateDog(dog) {
 function handleDogDelete() {
   $('.main-container').on('click', '.delete-button', function(e) {
     e.preventDefault();
-    deleteDog(
-      $(this).attr('id')
-    )
+    let dogId = $(this).closest('.row-container').attr('id')
+    deleteDog(dogId)
   })
 }
 
@@ -274,7 +292,7 @@ function deleteDog(dogId) {
   $.ajax({
     url: DOGS_URL + '/' + dogId,
     method: 'DELETE',
-    seccess: displayDogs
+    success: displayDogs
   })
 }
 
@@ -296,9 +314,6 @@ $(function() {
 
   handleDogModal();
   handleDogSubmit();
-  handleEditModal();
-  handleDogDelete();
 
-  handleCommentModal();
   decodeJwt();
 })
