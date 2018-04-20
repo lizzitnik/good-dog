@@ -6,21 +6,42 @@
     <link rel='stylesheet' href='/main.css'>
   </head>
   <body>
-    <div class='landing-page' style='display: none;'>
-      <h1>Welcome to Good Dog</h1>
-      <h3>A community of dog owners all here to help your dog smile again.</h3>
-      <ul>
-        <li>Search by dog breed or symptom and connect with dog owners with
-          similar pet problems</li>
-        <li>Create your own post describing your own dog's ailment and read suggestions
-          by people who want to help.</li>
-      </ul>
-      <h3>Be the hero your dog knows you are!</h3>
-      <button class='landing-button'>SignUp</button>
+    <header>
+      <div class='nav-container'>
+        <h2 class='title'>Good Dog</h2>
+      </div>
+    </header>
+
+    <div class='landing-page'>
+      <div class='upper-container'>
+        <h1>A happy pet is no sweat...</h1>
+        <h3>Good Dog is the perfect place to post about any problems you furry friend is having.
+          Whether it's a dry nose or a scary looking lump, there's sure to be someone who seen it
+          and knows how to help. You can also spread your knowledge and experience to other pet owners
+          in need.</h3>
+        <h3>Join a community of dog owners ready to help all dogs smile again.</h3>
+      </div>
+      <div class='lower-container'>
+        <div class='landing-div-1 div'>
+          <p>Search by dog breed or symptom and connect with dog owners with
+            similar pet problems.</p>
+        </div>
+        <div class='landing-div-2 div'>
+          <p>Create your own post describing your own dog's ailment and read suggestions
+            by people who want to help.</p>
+        </div>
+        <div class='landing-div-3 div'>
+          <p>Use your own experience to help out other dog owners by commenting on
+          their dogs.</p>
+        </div>
+      </div>
+      <footer class='landing-footer'>
+        <h3>Be the hero your dog knows you are!
+        <button class='landing-button' onclick='handleLandingChange()'>Sign Up</button> now</h3>
+      </footer>
     </div>
 
-    <div class='login-page'>
-      <h1>Good Dog</h1>
+    <div class='login-page' style='display: none;'>
       <div class='login-container'>
         <h2>SignUp</h2>
         <form class='signup-form'>

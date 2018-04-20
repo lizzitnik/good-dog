@@ -262,7 +262,7 @@ function updateDog(dog) {
 }
 
 function handleDogDelete() {
-  $('.main-container').on('click', '.edit-button', function(e) {
+  $('.main-container').on('click', '.delete-button', function(e) {
     e.preventDefault();
     deleteDog(
       $(this).attr('id')
@@ -297,7 +297,7 @@ $(function() {
   handleDogModal();
   handleDogSubmit();
   handleEditModal();
-  //handleDogDelete();
+  handleDogDelete();
 
   handleCommentModal();
   decodeJwt();

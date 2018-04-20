@@ -1,6 +1,11 @@
 const serverBase = '//localhost:8080/'
 const USER_URL = serverBase + 'users'
 
+function handleLandingChange() {
+  $('.landing-page').hide();
+  $('.login-page').show();
+}
+
 function login(userCreds) {
   $.ajax({
     url: "/auth/login",
