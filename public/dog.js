@@ -39,17 +39,11 @@ const commentTemplate = (comment) => (`
   </div>
   `)
 
-function decodeJwt() {
-  const token = localStorage.getItem('TOKEN');
-  const decoded = jwt_decode(token);
-  window.decoded
-}
-
 function displayDogs() {
   console.log('Retrieving dogs')
   window.user = JSON.parse(localStorage.getItem('USER'))
   $.getJSON(DOGS_URL, function(dogs) {
-    console.log(dogs);
+    console.log(dogs)
     const dogsElement = dogs.dogs.map(function(dog) {
       const element = $(dogTemplate);
       const commentElement = dog.comments.map(function(comment) {
@@ -85,24 +79,24 @@ function createSingleDog(dog) {
   window.location.reload()
 }
 
-function displaySingleDog(dog) {
-
-  const element = $(dogTemplate);
-  element.attr('id', dog.id);
-  element.find('.dog-heading').text(dog.dogName + ' the ' + dog.dogBreed);
-  element.find('.dog-symptom').text('Symptom: ' + dog.symptom);
-  element.find('.dog-info').text('More Info: ' + dog.additionalInfo)
-
-  window.user = JSON.parse(localStorage.getItem('USER'))
-  const owner = window.user && window.user.dogs.includes(dog.id)
-
-  if (owner) {
-    element.find('.comment-button').hide()
-    element.find('.edit-buttons').html(editButtons)
-  }
-
-  $('.main-container').append(element)
-}
+// function displaySingleDog(dog) {
+//
+//   const element = $(dogTemplate);
+//   element.attr('id', dog.id);
+//   element.find('.dog-heading').text(dog.dogName + ' the ' + dog.dogBreed);
+//   element.find('.dog-symptom').text('Symptom: ' + dog.symptom);
+//   element.find('.dog-info').text('More Info: ' + dog.additionalInfo)
+//
+//   window.user = JSON.parse(localStorage.getItem('USER'))
+//   const owner = window.user && window.user.dogs.includes(dog.id)
+//
+//   if (owner) {
+//     element.find('.comment-button').hide()
+//     element.find('.edit-buttons').html(editButtons)
+//   }
+//
+//   $('.main-container').append(element)
+// }
 
 function updateSingleDog(dog) {
 
@@ -112,13 +106,29 @@ function updateSingleDog(dog) {
   element.find('.dog-info').text('More Info: ' + dog.additionalInfo)
 
 }
+//5 ada6b5d9d5512ac2a4c0060
 
-function displaySingleComment(comment) {
-
+function createSingleComment(comment) {
+  console.log(comment.id)
+  $.getJSON(DOGS_URL, function(dogs) {
+    console.log(dogs)
+    let dog = dogs.dogs.find(element => element.id === comment.id)
+    dogs.dogs.dog.comments.push(comment.id)
+  })
+  const element = $(`#${comment.id}`);
   let fullComment = commentTemplate(comment)
+  element.attr('id', comment.id)
+  element.find('.comment-results').append(fullComment)
 
-  $('.comment-results').append(fullComment)
+  window.location.reload()
 }
+
+// function displaySingleComment(comment) {
+//
+//   let fullComment = commentTemplate(comment)
+//
+//   $('.comment-results').append(fullComment)
+// }
 
 function handleDogModal() {
   $('.create-button').on('click', function(e) {
@@ -179,25 +189,25 @@ function addDog(dog) {
 function handleCommentModal() {
   $('.comment-button').on('click', function(e) {
     e.preventDefault()
-    $('#comment-modal').show()
+    $('.comment-modal').show()
     let elementId = $(this).closest('.row-container').attr('id')
-    $('#comment-modal').attr('id', elementId)
+    $('.comment-modal').attr('id', elementId)
   })
 
   $('.close').on('click', function(e) {
     e.preventDefault();
-    $('#comment-modal').hide();
+    $('.comment-modal').hide();
   })
 
   $('.overlay').on('click', function(e) {
     e.preventDefault()
-    $('#comment-modal').hide();
+    $('.comment-modal').hide();
   })
 
   $('#comment-submit').on('click', function(e) {
     e.preventDefault();
-    let commentId = $('#comment-modal').attr('id')
-    $('#comment-modal').hide();
+    let commentId = $('.comment-modal').attr('id')
+    $('.comment-modal').hide();
     handleCommentAdd(commentId)
   })
 }
@@ -225,7 +235,7 @@ function addComment(comment) {
     method: 'POST',
     url: COMMENTS_URL,
     data: JSON.stringify(comment),
-    success: displaySingleComment
+    success: createSingleComment
   })
 }
 
@@ -276,7 +286,7 @@ function updateDog(dog) {
     url: DOGS_URL + '/' + dog.id,
     method: 'PUT',
     data: JSON.stringify(dog),
-    success: displaySingleDog
+    success: updateSingleDog
   })
 }
 
@@ -314,6 +324,4 @@ $(function() {
 
   handleDogModal();
   handleDogSubmit();
-
-  decodeJwt();
 })

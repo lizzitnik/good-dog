@@ -32,22 +32,6 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/my', (req, res) => {
-  User.findById(req.user.id)
-    .populate('comments')
-    .then(user => {
-      res.json({
-        comments: user.comments.map(comment => comment.serialize())
-      })
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(500).json({
-        message: err
-      })
-    })
-})
-
 router.get('/:id', (req, res) => {
   Comments.findById(req.params.id)
     .then(post => res.json(post.serialize()))
@@ -71,8 +55,9 @@ router.post('/', (req, res) => {
   }
   console.log('rendering req.body' + req.body)
   Comments.create({
+      id: req.body.id,
       commenterName: req.body.commenterName,
-      commentContent: req.body.commentContent,
+      commentContent: req.body.commentContent
     })
     .then(comment => {
       console.log(comment)
@@ -86,20 +71,4 @@ router.post('/', (req, res) => {
     })
 
 })
-
-router.delete('/:id', (req, res) => {
-  Comments.findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.status(204).json({
-        message: 'success'
-      })
-    })
-    .catch(err => {
-      console.log(err)
-      res.status(500).json({
-        error: 'something went terribly wrong'
-      })
-    })
-})
-
 module.exports = router

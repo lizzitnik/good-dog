@@ -35,6 +35,20 @@ describe('Dog', function() {
     return closeServer();
   });
   describe('GET endpoint', function() {
+    let token;
+    beforeAll(() => {
+      // Setup a user
+      User.create({
+        username: "test",
+        password: "12345678",
+        name: "Test"
+      }).then(user => {
+        // make a token
+        token = jwt.sign(user.serialize(), JWT_SECRET)
+        token = `JWT ${token}`
+      })
+    })
+
     it('should return all existing dogs', function() {
       let res;
       return chai.request(app)
