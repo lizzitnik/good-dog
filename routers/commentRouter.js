@@ -55,7 +55,6 @@ router.post('/', (req, res) => {
   }
   console.log('rendering req.body' + req.body)
   Comments.create({
-      id: req.body.id,
       commenterName: req.body.commenterName,
       commentContent: req.body.commentContent
     })

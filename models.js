@@ -75,7 +75,7 @@ DogSchema.methods.serialize = function() {
     dogBreed: this.dogBreed,
     symptom: this.symptom,
     additionalInfo: this.additionalInfo,
-    comments: this.comments
+    comments: this.comments.map(c => c.serialize())
   };
 };
 

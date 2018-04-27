@@ -21,6 +21,7 @@ const jwtAuth = passport.authenticate('jwt', {
 
 router.get('/', (req, res) => {
   Dog.find()
+    .populate("comments")
     .then(dogs => {
       res.json({
         dogs: dogs.map(dog => dog.serialize())

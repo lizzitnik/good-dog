@@ -110,11 +110,6 @@ function updateSingleDog(dog) {
 
 function createSingleComment(comment) {
   console.log(comment.id)
-  $.getJSON(DOGS_URL, function(dogs) {
-    console.log(dogs)
-    let dog = dogs.dogs.find(element => element.id === comment.id)
-    dogs.dogs.dog.comments.push(comment.id)
-  })
   const element = $(`#${comment.id}`);
   let fullComment = commentTemplate(comment)
   element.attr('id', comment.id)
@@ -245,6 +240,7 @@ function handleEditModal() {
     $('.edit-modal').show()
     let elementId = $(this).closest('.row-container').attr('id')
     $('.edit-modal').attr('id', elementId)
+    $('#edit-symptom-input').
   })
 
   $('.close').on('click', function(e) {
