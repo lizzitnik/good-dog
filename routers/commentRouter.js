@@ -8,16 +8,13 @@ const jsonParser = bodyParser.json()
 const mongoose = require("mongoose")
 mongoose.Promise = global.Promise
 
-const {
-  Comments,
-  User
-} = require('../models')
+const { Dog, Comments, User } = require("../models")
 
-const jwtAuth = passport.authenticate('jwt', {
+const jwtAuth = passport.authenticate("jwt", {
   session: false
 })
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   Comments.find()
     .then(comments => {
       res.json({
@@ -32,7 +29,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   Comments.findById(req.params.id)
     .then(post => res.json(post.serialize()))
     .catch(err => {
@@ -43,8 +40,8 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
-  const requiredFields = ['commenterName', 'commentContent']
+router.post("/", (req, res) => {
+  const requiredFields = ["commenterName", "commentContent"]
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i]
     if (!(field in req.body)) {
@@ -53,14 +50,23 @@ router.post('/', (req, res) => {
       return res.status(400).send(message)
     }
   }
-  console.log('rendering req.body' + req.body)
+  console.log("rendering req.body" + req.body)
   Comments.create({
-      id: req.body.id,
-      commenterName: req.body.commenterName,
-      commentContent: req.body.commentContent
-    })
+    commenterName: req.body.commenterName,
+    commentContent: req.body.commentContent
+  })
     .then(comment => {
-      console.log(comment)
+      Dog.findByIdAndUpdate(
+        req.body.id,
+        {
+          $push: {
+            comments: comment._id
+          }
+        },
+        function(err, model) {
+          console.log(err)
+        }
+      )
       res.status(201).json(comment.serialize())
     })
     .catch(err => {
@@ -69,6 +75,5 @@ router.post('/', (req, res) => {
         error: err
       })
     })
-
 })
 module.exports = router
