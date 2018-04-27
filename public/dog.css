@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font: 600 16px/18px 'Open Sans', sans-serif;
+  font: 600 16px/18px "Open Sans", sans-serif;
 }
 
 .nav-container {
@@ -27,7 +27,7 @@ body {
   left: 20px;
   color: rgba(26, 106, 33, 0.9);
   font-size: 70px;
-  font-family: 'GoodDog Cool'
+  font-family: "GoodDog Cool";
 }
 
 .create-button {
@@ -41,7 +41,7 @@ body {
   width: 100px;
   border-radius: 6px;
   background-color: rgba(58, 186, 58, 1);
-  font-family: 'Existence';
+  font-family: "Existence";
   font-size: 12px;
 }
 
@@ -69,8 +69,8 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -80,7 +80,7 @@ body {
   padding: 0;
   border: 1px solid rgba(58, 186, 58, 1);
   width: 600px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation-name: animatetop;
   animation-duration: 0.4s;
   z-index: 3;
@@ -132,10 +132,10 @@ body {
 
 .modal-submit-button:hover,
 .modal-submit-button:hover {
-  background: rgba(58, 186, 58, 0.7)
+  background: rgba(58, 186, 58, 0.7);
 }
 
-.close{
+.close {
   color: white;
   float: right;
   font-size: 24px;
@@ -165,8 +165,14 @@ body {
 }
 
 @keyframes animatetop {
-  from {top: -300px; opacity: 0}
-  to {top: 0; opacity: 1}
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 .main-container {
@@ -219,7 +225,7 @@ body {
 
 .dog-heading {
   color: #fff;
-  font-family: 'Florence';
+  font-family: "Florence";
   text-align: right;
   margin-left: 10px;
   font-size: 40px;
@@ -233,7 +239,7 @@ body {
 }
 
 .dog-symptom {
-  font-family: 'Existence';
+  font-family: "Existence";
   margin-bottom: 15px;
   color: rgba(26, 106, 33, 0.9);
   margin-left: 10px;
@@ -241,12 +247,13 @@ body {
   margin-right: 10px;
 }
 
-.symptom-span, .info-span {
+.symptom-span,
+.info-span {
   color: black;
 }
 
 .dog-info {
-  font-family: 'Existence';
+  font-family: "Existence";
   color: rgba(26, 106, 33, 0.9);
   margin-left: 10px;
   margin-top: 10px;
@@ -256,26 +263,20 @@ body {
 .comment-button,
 .delete-button,
 .edit-button {
-  position: absolute;
+  float: left;
   bottom: 0;
   height: 50px;
   text-transform: uppercase;
   color: #fff;
-  font: 20px 'Existence';
+  font: 20px "Existence";
   border: none;
   padding: 7px 10px;
-  width: 100%;
+  width: 33%;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 
-.delete-button,
 .edit-button {
-  width: 50%;
-}
-
-.edit-button {
-  right: 0;
   border-left: 1px solid white;
 }
 
@@ -287,38 +288,38 @@ body {
 
 .comment-button:hover {
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.2)
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .comment-html {
-  position:relative;
-  background:rgba(26, 106, 33, 0.3);
-  max-width:630px;
-  padding:10px;
-  border-radius:5px;
-  margin:10px;
+  position: relative;
+  background: rgba(26, 106, 33, 0.3);
+  max-width: 630px;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
   margin-right: 30px;
-  max-height:110px;
+  max-height: 110px;
   overflow: auto;
 }
 
 .comment-html:before {
-  content:"";
-  position:absolute;
-  width:0px;
-  height:0px;
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: 0px;
   border: 10px solid;
   border-color: transparent rgba(26, 106, 33, 0.3) transparent transparent;
-  left:-20px;
-  top:40px;
+  left: -20px;
+  top: 40px;
 }
 
 .comment-by {
-  font-family: 'Florence';
+  font-family: "Florence";
   font-size: 15px;
 }
 
 .comment-contents {
-  font-family: 'Existence';
+  font-family: "Existence";
   font-size: 10px;
 }

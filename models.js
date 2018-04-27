@@ -14,16 +14,16 @@ const UserSchema = mongoose.Schema({
   },
   firstName: {
     type: String,
-    default: ''
+    default: ""
   },
   lastName: {
     type: String,
-    default: ''
+    default: ""
   },
   dogs: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Dog'
-  }],
+    ref: "Dog"
+  }]
 })
 
 const DogSchema = mongoose.Schema({
@@ -44,7 +44,7 @@ const DogSchema = mongoose.Schema({
   },
   comments: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comments'
+    ref: "Comments"
   }]
 })
 
@@ -64,8 +64,8 @@ UserSchema.methods.serialize = function() {
     firstName: this.firstName,
     lastName: this.lastName,
     dogs: this.dogs
-  };
-};
+  }
+}
 
 DogSchema.methods.serialize = function() {
   return {
@@ -76,8 +76,8 @@ DogSchema.methods.serialize = function() {
     symptom: this.symptom,
     additionalInfo: this.additionalInfo,
     comments: this.comments.map(c => c.serialize())
-  };
-};
+  }
+}
 
 CommentSchema.methods.serialize = function() {
   return {
@@ -88,19 +88,19 @@ CommentSchema.methods.serialize = function() {
 }
 
 UserSchema.methods.validatePassword = function(password) {
-  return bcrypt.compare(password, this.password);
-};
+  return bcrypt.compare(password, this.password)
+}
 
 UserSchema.statics.hashPassword = function(password) {
-  return bcrypt.hash(password, 8);
-};
+  return bcrypt.hash(password, 8)
+}
 
-const User = mongoose.model('User', UserSchema);
-const Dog = mongoose.model('Dog', DogSchema);
-const Comments = mongoose.model('Comments', CommentSchema)
+const User = mongoose.model("User", UserSchema)
+const Dog = mongoose.model("Dog", DogSchema)
+const Comments = mongoose.model("Comments", CommentSchema)
 
 module.exports = {
   User,
   Dog,
   Comments
-};
+}
