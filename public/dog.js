@@ -59,7 +59,6 @@ function displayDogs() {
 
       const owner = window.user && window.user.dogs.includes(dog.id)
       if (owner) {
-        element.find(".comment-button").hide()
         element.find(".edit-buttons").html(editButtons)
       }
 

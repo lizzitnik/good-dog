@@ -74,6 +74,38 @@ router.get("/:id", (req, res) => {
     })
 })
 
+const createDog = (req, res, dogImage) => {
+  Dog.create({
+    dogImage: dogImage,
+    dogName: req.body.dogName,
+    dogBreed: req.body.dogBreed,
+    symptom: req.body.symptom,
+    additionalInfo: req.body.additionalInfo,
+    comments: req.body.comments
+  })
+    .then(dog => {
+      console.log(dog)
+      User.findByIdAndUpdate(
+        req.user.id,
+        {
+          $push: {
+            dogs: dog._id
+          }
+        },
+        function(err, model) {
+          console.log(err)
+        }
+      )
+      res.status(201).json(dog.serialize())
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({
+        error: err
+      })
+    })
+}
+
 router.post("/", jwtAuth, (req, res) => {
   const requiredFields = ["dogName", "dogBreed", "symptom"]
   for (let i = 0; i < requiredFields.length; i++) {
@@ -86,45 +118,15 @@ router.post("/", jwtAuth, (req, res) => {
   }
   console.log("rendering req.body" + req.body)
   const url = `https://dog.ceo/api/breed/${req.body.dogBreed}/images/random`
-  debugger
-  axios
+  let dogImage
+  let dogPromise = axios
     .get(url)
     .then(response => {
-      Dog.create({
-        dogImage: response.data.message,
-        dogName: req.body.dogName,
-        dogBreed: req.body.dogBreed,
-        symptom: req.body.symptom,
-        additionalInfo: req.body.additionalInfo,
-        comments: req.body.comments
-      })
-        .then(dog => {
-          console.log(dog)
-          User.findByIdAndUpdate(
-            req.user.id,
-            {
-              $push: {
-                dogs: dog._id
-              }
-            },
-            function(err, model) {
-              console.log(err)
-            }
-          )
-          res.status(201).json(dog.serialize())
-        })
-        .catch(err => {
-          console.error(err)
-          res.status(500).json({
-            error: err
-          })
-        })
+      dogImage = response.data.message
+      createDog(req, res, dogImage)
     })
     .catch(err => {
-      console.error(err)
-      res.status(500).json({
-        error: err
-      })
+      createDog(req, res, dogImage)
     })
 })
 
