@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+@font-face {font-family: Existence; src: url('Existence-Light.otf'); }
+@font-face {font-family: Florence; src: url('Florence-Regular.otf'); }
+@font-face {font-family: GoodDog Cool; src: url('GOODDC_.TTF'); }
+
 body {
   margin: 0;
   padding: 0;
@@ -27,6 +31,7 @@ h1 {
   padding-bottom: 20px;
   font-family: 'Florence';
   font-size: 70px;
+  line-height: 1;
 }
 
 h2 {
@@ -73,6 +78,12 @@ h2 {
   grid-gap: 40px;
 }
 
+@media (max-width: 768px) {
+  .lower-container {
+    grid-template-columns: 1fr;
+  }
+}
+
 .div {
   margin-top: 100px;
   padding: 10px;
@@ -91,6 +102,7 @@ h2 {
   text-align: center;
   font-family: "Florence";
   font-size: 50px;
+  line-height: 1;
 }
 
 .landing-button {
@@ -106,6 +118,8 @@ h2 {
 }
 
 .login-page {
+  display: grid;
+  grid-template-columns: 1fr;
   background: linear-gradient(rgba(255,255,255,0),
       rgba(255,255,255,0.8)),  url('https://free4kwallpaper.com/wp-content/uploads/2016/01/Happy-Dog-4K-Wallpaper.jpg') no-repeat center;
   background-size: 120% 100%;

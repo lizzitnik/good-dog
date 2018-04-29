@@ -5,9 +5,21 @@ const jwt = require("jsonwebtoken")
 const bodyParser = require("body-parser")
 const jsonParser = bodyParser.json()
 
-const { app, jwtAuth, runServer, closeServer } = require("../server")
-const { User, Dog, Comments } = require("../models")
-const { DATABASE_TEST_URL, JWT_SECRET } = require("../config")
+const {
+  app,
+  jwtAuth,
+  runServer,
+  closeServer
+} = require("../server")
+const {
+  User,
+  Dog,
+  Comments
+} = require("../models")
+const {
+  DATABASE_TEST_URL,
+  JWT_SECRET
+} = require("../config")
 
 const expect = chai.expect
 
@@ -51,6 +63,7 @@ describe("Dog", function() {
         .then(function(_res) {
           res = _res
           expect(res).to.have.status(200)
+          expect(res.body.dogs).to.have.length.of.at.least(1)
         })
     })
 
@@ -58,12 +71,10 @@ describe("Dog", function() {
       let token
       User.findOne()
         .then(user => {
-          token = jwt.sign(
-            {
+          token = jwt.sign({
               user: user.serialize()
             },
-            JWT_SECRET,
-            {
+            JWT_SECRET, {
               algorithm: "HS256",
               subject: username,
               expiresIn: "7d"
@@ -78,7 +89,6 @@ describe("Dog", function() {
             .set("authorization", `jwt ${token}`)
             .then(function(_res) {
               res = _res
-              debugger
               expect(res).to.have.status(200)
             })
         })
@@ -92,6 +102,7 @@ describe("Dog", function() {
         .then(function(_res) {
           res = _res
           expect(res).to.have.status(200)
+          expect(res.body).to.be.an('array');
         })
     })
   })
@@ -107,12 +118,10 @@ describe("Dog", function() {
       let token
       User.findOne()
         .then(user => {
-          token = jwt.sign(
-            {
+          token = jwt.sign({
               user: user.serialize()
             },
-            JWT_SECRET,
-            {
+            JWT_SECRET, {
               algorithm: "HS256",
               subject: username,
               expiresIn: "7d"
@@ -127,6 +136,15 @@ describe("Dog", function() {
             .set("authorization", `jwt ${token}`)
             .then(function(res) {
               expect(res).to.have.status(201)
+              expect(res).to.be.json;
+              expect(res.body).to.be.a('object');
+              expect(res.body).to.include.keys(
+                'id', 'dogName', 'dogBreed', 'symptom');
+              expect(res.body.dogName).to.equal(newDog.dogName);
+              // cause Mongo should have created id on insertion
+              expect(res.body.id).to.not.be.null;
+              expect(res.body.dogBreed).to.equal(newDog.dogBreed);
+              expect(res.body.symptom).to.equal(newDog.symptom);
             })
         })
     })
@@ -181,6 +199,14 @@ describe("Dog", function() {
         .send(newComment)
         .then(function(res) {
           expect(res).to.have.status(201)
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('object');
+          expect(res.body).to.include.keys(
+            'id', 'commenterName', 'commentContent');
+          expect(res.body.commenterName).to.equal(newComment.commenterName);
+          // cause Mongo should have created id on insertion
+          expect(res.body.id).to.not.be.null;
+          expect(res.body.commentContent).to.equal(newComment.commentContent);
         })
     })
   })
@@ -211,6 +237,7 @@ describe("Dog", function() {
         .then(function(res) {
           expect(res).to.have.status(201)
           expect(res.body.symptom).to.equal("whatevs")
+          expect(res.body.additionalInfo).to.equal("yeah yeah")
         })
     })
   })
@@ -226,6 +253,7 @@ describe("Dog", function() {
         })
         .then(function(res) {
           expect(res).to.have.status(204)
+          expect(res.body).to.be.empty;
         })
     })
   })

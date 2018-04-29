@@ -9,7 +9,11 @@ const axios = require("axios")
 const mongoose = require("mongoose")
 mongoose.Promise = global.Promise
 
-const { Dog, User, Comments } = require("../models")
+const {
+  Dog,
+  User,
+  Comments
+} = require("../models")
 
 const jwtAuth = passport.authenticate("jwt", {
   session: false
@@ -76,18 +80,17 @@ router.get("/:id", (req, res) => {
 
 const createDog = (req, res, dogImage) => {
   Dog.create({
-    dogImage: dogImage,
-    dogName: req.body.dogName,
-    dogBreed: req.body.dogBreed,
-    symptom: req.body.symptom,
-    additionalInfo: req.body.additionalInfo,
-    comments: req.body.comments
-  })
+      dogImage: dogImage,
+      dogName: req.body.dogName,
+      dogBreed: req.body.dogBreed,
+      symptom: req.body.symptom,
+      additionalInfo: req.body.additionalInfo,
+      comments: req.body.comments
+    })
     .then(dog => {
       console.log(dog)
       User.findByIdAndUpdate(
-        req.user.id,
-        {
+        req.user.id, {
           $push: {
             dogs: dog._id
           }
@@ -117,7 +120,8 @@ router.post("/", jwtAuth, (req, res) => {
     }
   }
   console.log("rendering req.body" + req.body)
-  const url = `https://dog.ceo/api/breed/${req.body.dogBreed}/images/random`
+  let userDogBreed = req.body.dogBreed.toLowerCase()
+  const url = `https://dog.ceo/api/breed/${userDogBreed}/images/random`
   let dogImage
   let dogPromise = axios
     .get(url)
@@ -142,14 +146,13 @@ router.post("/comments", (req, res) => {
   }
   console.log("rendering req.body" + req.body)
   Comments.create({
-    commenterName: req.body.commenterName,
-    commentContent: req.body.commentContent
-  })
+      commenterName: req.body.commenterName,
+      commentContent: req.body.commentContent
+    })
     .then(comment => {
       console.log(comment)
       Dog.findByIdAndUpdate(
-        req.body.id,
-        {
+        req.body.id, {
           $push: {
             comments: comment._id
           }
@@ -177,14 +180,12 @@ router.put("/:id", (req, res) => {
     }
   })
   Dog.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: updated
-    },
-    {
-      new: true
-    }
-  )
+      req.params.id, {
+        $set: updated
+      }, {
+        new: true
+      }
+    )
     .populate("comments")
     .then(updatedPost => {
       res.status(201).json(updatedPost.serialize())

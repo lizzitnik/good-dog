@@ -78,32 +78,12 @@ function createSingleDog(dog) {
   window.location.reload()
 }
 
-// function displaySingleDog(dog) {
-//
-//   const element = $(dogTemplate);
-//   element.attr('id', dog.id);
-//   element.find('.dog-heading').text(dog.dogName + ' the ' + dog.dogBreed);
-//   element.find('.dog-symptom').text('Symptom: ' + dog.symptom);
-//   element.find('.dog-info').text('More Info: ' + dog.additionalInfo)
-//
-//   window.user = JSON.parse(localStorage.getItem('USER'))
-//   const owner = window.user && window.user.dogs.includes(dog.id)
-//
-//   if (owner) {
-//     element.find('.comment-button').hide()
-//     element.find('.edit-buttons').html(editButtons)
-//   }
-//
-//   $('.main-container').append(element)
-// }
-
 function updateSingleDog(dog) {
   const element = $(`#${dog.id}`)
   element.attr("id", dog.id)
   element.find(".dog-symptom").text(dog.symptom)
   element.find(".dog-info").text(dog.additionalInfo)
 }
-//5 ada6b5d9d5512ac2a4c0060
 
 function createSingleComment(comment) {
   console.log(comment.id)
@@ -119,13 +99,6 @@ function createSingleComment(comment) {
 
   window.location.reload()
 }
-
-// function displaySingleComment(comment) {
-//
-//   let fullComment = commentTemplate(comment)
-//
-//   $('.comment-results').append(fullComment)
-// }
 
 function handleDogModal() {
   $(".create-button").on("click", function(e) {
@@ -278,9 +251,6 @@ function handleEditModal() {
 
     updateDog(item)
   })
-
-  // $('#edit-symptom-input').attr('value', dog.symptom)
-  // $('#edit-info-input').attr('value', dog.additionalInfo)
 }
 
 function updateDog(dog) {

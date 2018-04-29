@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+@font-face {font-family: Existence; src: url('Existence-Light.otf'); }
+@font-face {font-family: Florence; src: url('Florence-Regular.otf'); }
+@font-face {font-family: GoodDog Cool; src: url('GOODDC_.TTF'); }
+
 body {
   margin: 0;
   padding: 0;
@@ -189,6 +193,12 @@ body {
   padding: 20px 0;
 }
 
+@media (max-width: 768px) {
+  .row-container {
+    grid-template-columns: 1fr;
+  }
+}
+
 .dog-wrap {
   left: 0;
 }
@@ -199,10 +209,6 @@ body {
   height: 300px;
   border: 1px solid lightgrey;
 }
-
-/* @media max-width: 768px {
-
-} */
 
 .top-dog {
   width: 100%;
@@ -236,6 +242,7 @@ body {
   width: 100%;
   height: 250px;
   overflow: auto;
+  padding: 10px;
 }
 
 .dog-symptom {
@@ -278,6 +285,7 @@ body {
 
 .edit-button {
   border-left: 1px solid white;
+  border-right: 1px solid white;
 }
 
 .delete-button:hover,
