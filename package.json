@@ -4,7 +4,7 @@
   "description": "Dog ailment forum",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --inspect --exit",
+    "test": "mocha --exit",
     "start": "nodemon --inspect server.js"
   },
   "author": "",
