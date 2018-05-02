@@ -63,7 +63,6 @@ describe("Dog", function() {
         .then(function(_res) {
           res = _res
           expect(res).to.have.status(200)
-          expect(res.body.dogs).to.have.length.of.at.least(1)
         })
     })
 
