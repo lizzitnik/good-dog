@@ -1,9 +1,9 @@
 language: node_js
 node_js: node
 services: mongodb
-before_script:
-  - sleep 15
-  - mongo DATABASE_TEST_URL --eval 'db.createUser({username:'travis',password:'test',firstName:'travis',lastName:'ci'});'
+# before_script:
+#   - sleep 15
+#   - mongo DATABASE_TEST_URL --eval 'db.createUser({username:'travis',password:'test',firstName:'travis',lastName:'ci'});'
 deploy:
   provider: heroku
   api_key:
