@@ -5,6 +5,6 @@ deploy:
   provider: heroku
   api_key:
     secure: 'TOQl6tXIsTX+q94Pd/oddFS3KqjBy88rOK89/TlR8LPNJQUmxMXLnIoikSJ578Rh1GQzub1JDr5bqebKnSezvbDPmHLCDBPpqDDUvoZmC5h0esMRm9/Xs7gPCfqlXpBYaVDLBEBTv/VXbM8XpitL7/T3TbELqGdFqbmYBbB6TCeO+aN4Jx0Jt490e9+CfvAxjNj7FMEoroNgEWeDlF7XsC2D6gvWGfluPgSJxP8Pce/qOoLJGIYPw9B9XZO6K1a4KngrlLgrARhFJjQvbpFEn+MsyYUTSs6cU5A4Xfmhyj2pLV5JiliP/0+Ldxx7/5mQ3ABhCiCiyZmcuqBppP0Kzb1PEpXZVnt2K3rqbyJTh4jl+RGFY+yCtnxZQwgI7MF37fMsHm/EM1kAfy8eLJnm/s1swOA/zAQqefSinjqr2t0qgxx3cQAngezP5hLQWtDqLRn8LgkqTp3cEp0Wn5TQ3HB1v+7ZZrBAe8dmVdvtpDALWcFQwlACP8B0sIROvlduSvgN6viS8k2jx5a16C416lgaYaeAG+SS724N3iKVGpL1c/CWGPPiV8zXwsUx+AJJEs9z2rSRbkqjYwkOxtA/8LfJlR90PQW1qkEKaIZatw8mhm3oUt1s7eMrxQYekbuUAN7TQHQiraMp3v8lqNwJi9sAg3PtYyXIwwMZRKCbV4c='
-  app: stormy-beach-61529
+  app: good-dog
   on:
     repo: lizzitnik/good-dog

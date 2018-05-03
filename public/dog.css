@@ -5,7 +5,13 @@
 
 @font-face {font-family: Existence; src: url('Existence-Light.otf'); }
 @font-face {font-family: Florence; src: url('Florence-Regular.otf'); }
-@font-face {font-family: GoodDog Cool; src: url('GOODDC_.TTF'); }
+@font-face {
+    font-family: 'gooddog_coolregular';
+    src: url('gooddc__-webfont.woff2') format('woff2'),
+         url('gooddc__-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body {
   margin: 0;
@@ -31,7 +37,7 @@ body {
   left: 20px;
   color: rgba(26, 106, 33, 0.9);
   font-size: 70px;
-  font-family: "GoodDog Cool";
+  font-family: 'gooddog_coolregular';
 }
 
 .create-button {

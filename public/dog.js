@@ -1,4 +1,4 @@
-const serverBase = "//localhost:8080/"
+const serverBase = "/"
 const DOGS_URL = serverBase + "dogs"
 const COMMENTS_URL = serverBase + "comments"
 
