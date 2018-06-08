@@ -117,11 +117,13 @@ h2 {
   background: none;
   font-family: "Florence";
   font-size: 50px;
+  color: rgba(26, 106, 33, 0.9);
 }
 
 .landing-button:hover {
   color: rgba(58, 186, 58, 1);
   cursor: pointer;
+  color: grey;
 }
 
 .login-page {
