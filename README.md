@@ -9,6 +9,8 @@ Being a dog owner myself, I wanted to create a forum that is dedicated solely to
 ## Screenshots
 <img width="1434" alt="screen shot 2018-06-07 at 6 30 01 pm" src="https://user-images.githubusercontent.com/32852757/41134377-e8d453c4-6a80-11e8-8c2a-e7f2fa82e6d0.png">
 
+<img width="1434" alt="screen shot 2018-06-07 at 6 32 53 pm" src="https://user-images.githubusercontent.com/32852757/41134458-441de09c-6a81-11e8-98cd-7a3481646ebb.png">
+
 ## Technology
 Built with:
 - HTML
