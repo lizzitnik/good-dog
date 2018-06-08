@@ -5,8 +5,8 @@ A web app that allows dog owners and/or dog enthusiasts to post their pet concer
 
 Link to live app: [App](https://good-dog.herokuapp.com)
 <br>Demo Login: 
-  <br>username: demouser
-  <br>password: password
+  <br>- username: demouser
+  <br>- password: password
 
 ## Motivation
 Being a dog owner myself, I wanted to create a forum that is dedicated solely to our loyal companions and their owners.
