@@ -1,6 +1,19 @@
 ##Good Dog
 
 #Summary
-I, being a dog owner myself, have gone through the process of calling a vet and trying to explain the circumstances around my dog's sudden illness. At Good Dog, dog owners can post their dog's symptoms on the forum and get experienced answers from other dog lovers around the world. The Good Dog user can then add to the discussion and answer questions that other owners have about their ailing dog.
+A web app that allows dog owners and/or dog enthusiasts to post their pet concerns on a public forum. Users can expect comments from people in their community who have experience with specific problems. Users can post comments of their own, helping other pet owners in need.
 
-#Technology Used
+#Motivation
+Being a dog owner myself, I wanted to create a forum that is dedicated solely to our loyal companions and their owners.
+
+#Screenshots
+
+
+#Technology
+Build with:
+- HTML
+- CSS
+- JavaScript
+- jQuery
+- Node.js
+- Express
