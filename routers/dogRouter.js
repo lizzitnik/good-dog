@@ -88,7 +88,6 @@ const createDog = (req, res, dogImage) => {
       comments: req.body.comments
     })
     .then(dog => {
-      console.log(dog)
       User.findByIdAndUpdate(
         req.user.id, {
           $push: {
@@ -150,7 +149,6 @@ router.post("/comments", (req, res) => {
       commentContent: req.body.commentContent
     })
     .then(comment => {
-      console.log(comment)
       Dog.findByIdAndUpdate(
         req.body.id, {
           $push: {

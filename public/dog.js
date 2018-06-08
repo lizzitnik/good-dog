@@ -40,10 +40,8 @@ const commentTemplate = comment => `
   `
 
 function displayDogs() {
-  console.log("Retrieving dogs")
   window.user = JSON.parse(localStorage.getItem("USER"))
   $.getJSON(DOGS_URL, function(dogs) {
-    console.log(dogs)
     const dogsElement = dogs.dogs.map(function(dog) {
       const element = $(dogTemplate)
       const commentElement = dog.comments.map(function(comment) {
@@ -86,9 +84,7 @@ function updateSingleDog(dog) {
 }
 
 function createSingleComment(comment) {
-  console.log(comment.id)
   $.getJSON(DOGS_URL, function(dogs) {
-    console.log(dogs)
     let dog = dogs.dogs.find(element => element.id === comment.id)
     dogs.dogs.dog.comments.push(comment.id)
   })
@@ -125,7 +121,6 @@ function handleDogSubmit() {
 }
 
 function handleDogAdd() {
-  console.log("preparing to add")
 
   const dogName = $("#dog-name-input").val()
   const dogBreed = $("#dog-breed-input").val()
@@ -185,7 +180,6 @@ function handleCommentModal() {
 }
 
 function handleCommentAdd(commentId) {
-  console.log("preparing to add")
 
   const commenterName = $("#comment-name-input").val()
   const commentContent = $("#comment-input").val()
